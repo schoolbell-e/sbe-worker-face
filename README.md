@@ -12,7 +12,7 @@
 
 - [TypeScript][typescript] [4.3][typescript-4-3]
 - [ESLint][eslint] with some initial rules recommendation
-- [Jest][jest] for fast unit testing and code coverage
+- [Jasmine][jasmine] for fast unit testing and code coverage
 - Type definitions for Node.js and Jest
 - [Prettier][prettier] to enforce consistent code style
 - NPM [scripts](#available-scripts) for common operations
@@ -29,7 +29,7 @@ This project is intended to be used with the latest Active LTS release of [Node.
 
 ### Use as a repository template
 
-To start, just click the **[Use template][repo-template-action]** link (or the green button). Start adding your code in the `src` and unit tests in the `__tests__` directories.
+To start, just click the **[Use template][repo-template-action]** link (or the green button). Start adding your code and unit tests in the `src`.
 
 ### Clone repository
 
@@ -93,7 +93,7 @@ Licensed under the APLv2. See the [LICENSE](https://github.com/jsynowiec/node-ty
 [license]: https://github.com/jsynowiec/node-typescript-boilerplate/blob/main/LICENSE
 [sponsor-badge]: https://img.shields.io/badge/♥-Sponsor-fc0fb5.svg
 [sponsor]: https://github.com/sponsors/jsynowiec
-[jest]: https://facebook.github.io/jest/
+[jasmine]: https://jasmine.github.io/
 [eslint]: https://github.com/eslint/eslint
 [wiki-js-tests]: https://github.com/jsynowiec/node-typescript-boilerplate/wiki/Unit-tests-in-plain-JavaScript
 [prettier]: https://prettier.io
