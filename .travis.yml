@@ -1,0 +1,64 @@
+sudo: required
+branches:
+  only:
+  - master
+dist: xenial
+language: node_js
+node_js:
+- '14'
+services:
+- docker
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+env:
+  global:
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - WORKER_IMAGE_TAG=gcr.io/schoolbelle-ci/sbe-worker-face:${TRAVIS_BRANCH}.${TRAVIS_BUILD_NUMBER}
+ 
+stages:
+  - name: build-test-and-deploy-worker
+
+jobs:
+  include:
+  - stage: build-test-and-deploy-worker
+    before_install:
+    - if [ ! -d "secrets" ]; then mkdir secrets; fi
+    - openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv -in secrets.tar.enc -out secrets.tar -d
+    - tar xvf secrets.tar
+    # [START kubectl auth]
+    - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash 2>&1 >/dev/null; fi
+    - export PATH="${HOME}/google-cloud-sdk/bin:$PATH"
+    - gcloud version || true
+    - ${HOME}/google-cloud-sdk/bin/gcloud info
+    - gcloud auth activate-service-account --key-file kubernetes-credentials.json
+    - gcloud config set project schoolbelle-ci
+    - gcloud components install kubectl 
+
+    # [END kubectl auth]
+
+    install:
+    - docker-compose --version
+
+    before_script:
+    - gcloud docker -- pull gcr.io/schoolbelle-ci/sbe-worker-face || true
+
+    script:
+    # - docker-compose -f docker-compose.test.yml build || travis_terminate 1
+    # - docker-compose -f docker-compose.test.yml up --exit-code-from test || travis_terminate 1
+    
+    - docker version
+    - travis_wait 30 docker build -f dockers/Dockerfile -t ${WORKER_IMAGE_TAG} . || travis_terminate 1
+    - docker tag ${WORKER_IMAGE_TAG} gcr.io/schoolbelle-ci/sbe-worker-face:latest || travis_terminate 1
+    - sudo /etc/init.d/mysql stop
+    - docker-compose -f ./dockers/docker-compose.test.yml build || travis_terminate 1
+    - docker-compose -f ./dockers/docker-compose.test.yml up --exit-code-from worker-face || travis_terminate 1
+    - if [ $TRAVIS_PULL_REQUEST == 'false' ]; then
+        gcloud docker -- push gcr.io/schoolbelle-ci/sbe-worker-face;
+        sed -i.bak s#gcr.io/schoolbelle-ci/sbe-worker-face:master.1#${WORKER_IMAGE_TAG}# ./k8s/*.yaml;
+        gcloud config set container/cluster schoolbelle-ci-cluster-korea;	
+        gcloud config set compute/zone asia-northeast3-a;
+        gcloud container clusters get-credentials schoolbelle-ci-cluster-korea;
+        kubectl apply -f ./k8s/;
+      fi    
+

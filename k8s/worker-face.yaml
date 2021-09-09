@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sbe-worker-face
+spec:
+  replicas: 2
+  selector:  
+    matchLabels:
+      app: sbe-worker-face  
+  template:
+    metadata:
+      labels:
+        app: sbe-worker-face
+    spec:
+      containers:
+        - name: subscriber
+          image: gcr.io/schoolbelle-ci/sbe-worker-face:master.1
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /liveness
+              port: 8080
+            initialDelaySeconds: 10    
+          volumeMounts:
+            - name: cloud-storage-credentials
+              mountPath: /secrets/others
+              readOnly: true
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /secrets/others/google-service-account.json
+            - name: NODE_ENV
+              value: production  
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: redishost-log
+                  key: REDIS_HOST_LOG                
+            - name: DEFAULT_MYSQL_HOST
+              value: 127.0.0.1
+            - name: CLOUD_STOREAGE_BUCKET_NAME
+              value: sbe-user-upload
+          envFrom:
+            - secretRef:
+                name: cloudsql
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "1"                
+            limits:
+              memory: "2Gi"
+              cpu: "1"                
+        # [START proxy_containers]
+        - name: cloudsql-proxy
+          # image: gcr.io/cloudsql-docker/gce-proxy:1.16
+          image: gcr.io/cloudsql-docker/gce-proxy:1.15
+          command: ["/cloud_sql_proxy",
+                    "-verbose=false",
+                    "-instances=schoolbell-e:asia-northeast1:schoolbelle-japan-cloudsql=tcp:3306",
+                    "-credential_file=/secrets/cloudsql/credentials.json"]
+          livenessProbe:
+            exec:
+              command: ["nc", "-z", "127.0.0.1", "3306"]
+            initialDelaySeconds: 5
+            timeoutSeconds: 10     
+            periodSeconds: 15               
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+        # [END proxy_containers]
+      # [START volumes]
+      volumes:
+        - name: cloud-storage-credentials
+          secret:
+            secretName: cloud-storage-credentials
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloudsql-instance-credentials
+      # [END volumes]
+      terminationGracePeriodSeconds: 120

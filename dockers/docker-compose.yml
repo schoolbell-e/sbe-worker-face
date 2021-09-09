@@ -1,0 +1,35 @@
+version: "3"
+services:
+  worker:
+    container_name: worker-face
+    build: 
+      context: ../../
+      dockerfile: workers/dockers/Dockerfile
+      volumes:
+        - ../../secrets/others:/secrets/others      
+      environment:
+        - NODE_ENV=production
+        - GOOGLE_APPLICATION_CREDENTIALS=/secrets/others/google-service-account.json
+        - DEFAULT_MYSQL_HOST=mysql-cluster
+        - REDIS_HOST=redis
+        - TZ=Asia/Seoul
+      env_file:
+        - ../../.env      
+      ports:
+        - 8080:8080
+      depends_on:
+        - mysql-cluster
+        - redis    
+  mysql-cluster:
+    image: gcr.io/cloudsql-docker/gce-proxy:1.15
+    command: /cloud_sql_proxy --dir=/cloudsql -instances=schoolbell-e:asia-northeast1:schoolbelle-japan-cloudsql=tcp:0.0.0.0:3306 -credential_file=/secrets/cloudsql/schoolbell-e.json
+    ports:
+      - 3306:3306      
+    volumes:
+      - ../../secrets/cloudsql:/secrets/cloudsql      
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    restart: always    
