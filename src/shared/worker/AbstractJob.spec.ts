@@ -4,7 +4,7 @@ import { Redis } from '@schoolbell-e/backend.servers';
 import { AbstractJob } from './AbstractJob';
 
 /**
- * npm run test -- \"src/shared/jobs/AbstractJob.spec.ts
+ * npm run test -- \"src/shared/worker/AbstractJob.spec.ts
  */
 describe('AbstractJob test', () => {
   beforeEach(async () => {

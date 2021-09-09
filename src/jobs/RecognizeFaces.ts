@@ -4,7 +4,7 @@ import Face from '../models/Face/Face';
 import FaceDetectionsTable from '../shared/tables/FaceDetectionsTable';
 import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import FaceRecognitionsTable from '../shared/tables/FaceRecognitionsTable';
-import { AbstractJob } from '../shared/jobs/AbstractJob';
+import { AbstractJob } from '../shared/worker/AbstractJob';
 import LetterToGroupTable from '../shared/tables/LetterToGroupTable';
 import { flatten, groupBy, map } from 'lodash';
 import Letter from '../models/Letter';

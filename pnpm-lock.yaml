@@ -29,6 +29,7 @@ importers:
       tslib: registry.npmjs.org/tslib/2.2.0
       tsutils: registry.npmjs.org/tsutils/3.21.0_typescript@4.4.2
       typescript: registry.npmjs.org/typescript/4.4.2
+      uuid: registry.npmjs.org/uuid/8.3.2
       weighted-random: registry.npmjs.org/weighted-random/0.1.0
       winston: registry.npmjs.org/winston/3.3.3
       winston-redis: github.com/winstonjs/winston-redis/e97c85377aed8763a671e242389882ae8ad4e421_redis@3.1.2+winston@3.3.3
@@ -39,10 +40,11 @@ importers:
       '@types/node': registry.npmjs.org/@types/node/12.20.4
       '@types/node-fetch': registry.npmjs.org/@types/node-fetch/2.5.12
       '@types/redis': registry.npmjs.org/@types/redis/2.8.32
+      sinon: registry.npmjs.org/sinon/10.0.0
       tmp: registry.npmjs.org/tmp/0.2.1
     specifiers:
       '@babel/runtime': 7.12.18
-      '@google-cloud/pubsub': ^2.17.0
+      '@google-cloud/pubsub': 2.17.0
       '@google-cloud/storage': ^5.14.1
       '@tensorflow/tfjs-node': ^3.9.0
       '@types/dateformat': ^3.0.1
@@ -68,6 +70,7 @@ importers:
       prettier: ~2.3.2
       redis: 3.1.2
       rimraf: ~3.0.2
+      sinon: ^10.0.0
       sleep-promise: 9.1.0
       tmp: 0.2.1
       ts-jest: ^27.0.5
@@ -75,6 +78,7 @@ importers:
       tslib: ~2.2.0
       tsutils: ~3.21.0
       typescript: ^4.4.2
+      uuid: ^8.3.2
       weighted-random: ^0.1.0
       winston: 3.3.3
       winston-redis: github:winstonjs/winston-redis
@@ -90,6 +94,8 @@ importers:
   src/shared/tables:
     specifiers: {}
   src/shared/util:
+    specifiers: {}
+  src/shared/worker:
     specifiers: {}
 lockfileVersion: 5.2
 packages:
@@ -885,7 +891,7 @@ packages:
   registry.npmjs.org/@jest/console/27.1.1:
     dependencies:
       '@jest/types': registry.npmjs.org/@jest/types/27.1.1
-      '@types/node': registry.npmjs.org/@types/node/12.20.4
+      '@types/node': registry.npmjs.org/@types/node/16.9.0
       chalk: registry.npmjs.org/chalk/4.1.2
       jest-message-util: registry.npmjs.org/jest-message-util/27.1.1
       jest-util: registry.npmjs.org/jest-util/27.1.1
@@ -1123,7 +1129,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': registry.npmjs.org/@types/istanbul-lib-coverage/2.0.3
       '@types/istanbul-reports': registry.npmjs.org/@types/istanbul-reports/3.0.1
-      '@types/node': registry.npmjs.org/@types/node/12.20.4
+      '@types/node': registry.npmjs.org/@types/node/16.9.0
       '@types/yargs': registry.npmjs.org/@types/yargs/16.0.4
       chalk: registry.npmjs.org/chalk/4.1.2
     dev: false
@@ -1325,13 +1331,22 @@ packages:
   registry.npmjs.org/@sinonjs/commons/1.8.3:
     dependencies:
       type-detect: registry.npmjs.org/type-detect/4.0.8
-    dev: false
     name: '@sinonjs/commons'
     resolution:
       integrity: sha512-xkNcLAn/wZaX14RPlwizcKicDk9G3F8m2nU3L7Ukm5zBgTwiT0wsoFAHx9Jq56fJA1z/7uKGtCRu16sOUCLIHQ==
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/@sinonjs/commons/-/commons-1.8.3.tgz
     version: 1.8.3
+  registry.npmjs.org/@sinonjs/fake-timers/6.0.1:
+    dependencies:
+      '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
+    dev: true
+    name: '@sinonjs/fake-timers'
+    resolution:
+      integrity: sha512-MZPUxrmFubI36XS1DI3qmI0YdN1gks62JtFZvxR67ljjSNCeK6U08Zx4msEWOXuofgqUt6zPHSi1H9fbjR/NRA==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/@sinonjs/fake-timers/-/fake-timers-6.0.1.tgz
+    version: 6.0.1
   registry.npmjs.org/@sinonjs/fake-timers/7.1.2:
     dependencies:
       '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
@@ -1342,6 +1357,26 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/@sinonjs/fake-timers/-/fake-timers-7.1.2.tgz
     version: 7.1.2
+  registry.npmjs.org/@sinonjs/samsam/5.3.1:
+    dependencies:
+      '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
+      lodash.get: registry.npmjs.org/lodash.get/4.4.2
+      type-detect: registry.npmjs.org/type-detect/4.0.8
+    dev: true
+    name: '@sinonjs/samsam'
+    resolution:
+      integrity: sha512-1Hc0b1TtyfBu8ixF/tpfSHTVWKwCBLY4QJbkgnE7HcwyvT2xArDxb4K7dMgqRm3szI+LJbzmW/s4xxEhv6hwDg==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/@sinonjs/samsam/-/samsam-5.3.1.tgz
+    version: 5.3.1
+  registry.npmjs.org/@sinonjs/text-encoding/0.7.1:
+    dev: true
+    name: '@sinonjs/text-encoding'
+    resolution:
+      integrity: sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz
+    version: 0.7.1
   registry.npmjs.org/@szmarczak/http-timer/1.1.2:
     dependencies:
       defer-to-connect: registry.npmjs.org/defer-to-connect/1.1.3
@@ -3295,7 +3330,6 @@ packages:
       tarball: https://registry.npmjs.org/diff-sequences/-/diff-sequences-27.0.6.tgz
     version: 27.0.6
   registry.npmjs.org/diff/4.0.2:
-    dev: false
     engines:
       node: '>=0.3.1'
     name: diff
@@ -4887,6 +4921,14 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/is-yarn-global/-/is-yarn-global-0.3.0.tgz
     version: 0.3.0
+  registry.npmjs.org/isarray/0.0.1:
+    dev: true
+    name: isarray
+    resolution:
+      integrity: sha1-ihis/Kmo9Bd+Cav8YDiTmwXR7t8=
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz
+    version: 0.0.1
   registry.npmjs.org/isarray/1.0.0:
     dev: false
     name: isarray
@@ -5721,6 +5763,14 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/json5/-/json5-2.2.0.tgz
     version: 2.2.0
+  registry.npmjs.org/just-extend/4.2.1:
+    dev: true
+    name: just-extend
+    resolution:
+      integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/just-extend/-/just-extend-4.2.1.tgz
+    version: 4.2.1
   registry.npmjs.org/jwa/2.0.0:
     dependencies:
       buffer-equal-constant-time: registry.npmjs.org/buffer-equal-constant-time/1.0.1
@@ -5848,6 +5898,14 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz
     version: 4.5.0
+  registry.npmjs.org/lodash.get/4.4.2:
+    dev: true
+    name: lodash.get
+    resolution:
+      integrity: sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/lodash.get/-/lodash.get-4.4.2.tgz
+    version: 4.4.2
   registry.npmjs.org/lodash.merge/4.6.2:
     dev: false
     name: lodash.merge
@@ -6223,6 +6281,20 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz
     version: 1.4.0
+  registry.npmjs.org/nise/4.1.0:
+    dependencies:
+      '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
+      '@sinonjs/fake-timers': registry.npmjs.org/@sinonjs/fake-timers/6.0.1
+      '@sinonjs/text-encoding': registry.npmjs.org/@sinonjs/text-encoding/0.7.1
+      just-extend: registry.npmjs.org/just-extend/4.2.1
+      path-to-regexp: registry.npmjs.org/path-to-regexp/1.8.0
+    dev: true
+    name: nise
+    resolution:
+      integrity: sha512-eQMEmGN/8arp0xsvGoQ+B1qvSkR73B1nWSCh7nOt5neMCtwcQVYQGdzQMhcNscktTsWB54xnlSQFzOAPJD8nXA==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/nise/-/nise-4.1.0.tgz
+    version: 4.1.0
   registry.npmjs.org/node-fetch/2.1.2:
     dev: false
     engines:
@@ -6622,6 +6694,16 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz
     version: 1.0.7
+  registry.npmjs.org/path-to-regexp/1.8.0:
+    dependencies:
+      isarray: registry.npmjs.org/isarray/0.0.1
+    dev: true
+    name: path-to-regexp
+    resolution:
+      integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-1.8.0.tgz
+    version: 1.8.0
   registry.npmjs.org/path-type/4.0.0:
     dev: false
     engines:
@@ -7328,6 +7410,21 @@ packages:
       registry: https://node.bit.dev/
       tarball: https://registry.npmjs.org/simple-swizzle/-/simple-swizzle-0.2.2.tgz
     version: 0.2.2
+  registry.npmjs.org/sinon/10.0.0:
+    dependencies:
+      '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
+      '@sinonjs/fake-timers': registry.npmjs.org/@sinonjs/fake-timers/6.0.1
+      '@sinonjs/samsam': registry.npmjs.org/@sinonjs/samsam/5.3.1
+      diff: registry.npmjs.org/diff/4.0.2
+      nise: registry.npmjs.org/nise/4.1.0
+      supports-color: registry.npmjs.org/supports-color/7.2.0
+    dev: true
+    name: sinon
+    resolution:
+      integrity: sha512-XAn5DxtGVJBlBWYrcYKEhWCz7FLwZGdyvANRyK06419hyEpdT0dMc5A8Vcxg5SCGHc40CsqoKsc1bt1CbJPfNw==
+      registry: https://node.bit.dev/
+      tarball: https://registry.npmjs.org/sinon/-/sinon-10.0.0.tgz
+    version: 10.0.0
   registry.npmjs.org/sisteransi/1.0.5:
     dev: false
     name: sisteransi
@@ -8045,7 +8142,6 @@ packages:
       tarball: https://registry.npmjs.org/type-check/-/type-check-0.4.0.tgz
     version: 0.4.0
   registry.npmjs.org/type-detect/4.0.8:
-    dev: false
     engines:
       node: '>=4'
     name: type-detect

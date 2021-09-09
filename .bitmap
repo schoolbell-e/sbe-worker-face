@@ -21,12 +21,6 @@
         "mainFile": "index.ts",
         "rootDir": "src/shared/gcp"
     },
-    "jobs": {
-        "scope": "schoolbell-e.backend",
-        "version": "0.0.7",
-        "mainFile": "index.ts",
-        "rootDir": "src/shared/jobs"
-    },
     "servers": {
         "scope": "schoolbell-e.backend",
         "version": "0.0.1",
@@ -44,6 +38,12 @@
         "version": "0.0.1",
         "mainFile": "index.ts",
         "rootDir": "src/shared/util"
+    },
+    "worker": {
+        "scope": "schoolbell-e.backend",
+        "version": "0.0.1",
+        "mainFile": "index.ts",
+        "rootDir": "src/shared/worker"
     },
     "$schema-version": "14.9.0"
 }

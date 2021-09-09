@@ -25,5 +25,5 @@ RUN npm run build
 ENV PORT 80
 EXPOSE 80 
 
-CMD ["node", "./build/scripts/start-face-worker.js"]
+CMD ["node", "./build/scripts/start-worker.js"]
 # CMD ["pm2-runtime", "/build/index.js"]

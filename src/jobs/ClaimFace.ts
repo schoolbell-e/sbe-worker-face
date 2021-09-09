@@ -1,7 +1,7 @@
 import FaceDetectionsTable from '../shared/tables/FaceDetectionsTable';
 import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import FaceRecognitionsTable from '../shared/tables/FaceRecognitionsTable';
-import { AbstractJob } from '../shared/jobs/AbstractJob';
+import { AbstractJob } from '../shared/worker/AbstractJob';
 import { isMatch, minBy } from 'lodash';
 import Face, { MAX_DISTANCE } from '../models/Face/Face';
 import FilesTable from '../shared/tables/FilesTable';

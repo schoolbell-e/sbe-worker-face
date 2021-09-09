@@ -1,6 +1,6 @@
 import { ClaimFace } from '../jobs/ClaimFace';
 import { RecognizeFaces } from '../jobs/RecognizeFaces';
-import { Worker } from '../shared';
+import { Worker } from '../shared/worker';
 const TOPIC_NAME = 'face-recognition';
 const SUBSCRIPTION_NAME = 'face-recognition';
 
