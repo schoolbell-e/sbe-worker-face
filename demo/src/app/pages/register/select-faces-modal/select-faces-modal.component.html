@@ -1,0 +1,36 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">
+        <ng-container *ngIf="list.length > 1; else isYou">Select your face(s)</ng-container>
+        <ng-template #isYou>Is this you?</ng-template>
+    </h4>
+</div>
+
+<div class="modal-body">
+    <div class="row justify-content-center">
+        <div class="col-sm-3" *ngFor="let li of list; let i = index;" (click)="toggle(li)">
+            <div class="position-relative">
+                <img [blob]="li.img" width="100%" />
+                <div *ngIf="isChecked(li)" class="position-absolute d-flex align-items-end justify-content-end p-2" style="left:0;right:0;top:0;bottom:0;opacity:1;background-color:rgba(0, 0, 0, .3);z-index:2;">
+                    <i class="fa fa-check-circle text-primary fa-2x" aria-hidden="true"></i>
+                </div>
+            </div>
+        
+
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer justify-content-end">
+        <button type="button" class="btn btn-outline-secondary ml-1" (click)="cancel()">
+            <ng-container *ngIf="list.length > 1; else nope">Cancel</ng-container>
+            <ng-template #nope>Nope</ng-template>
+        </button>
+        <button type="button" class="btn ml-1" [ngClass]="selected.length === 0 ? 'btn-secondary':'btn-primary'" [disabled]="selected.length === 0" (click)="ok();">
+            <ng-container *ngIf="list.length > 1; else yes">Ok</ng-container>
+            <ng-template #yes>Yes</ng-template>
+        </button>
+</div>
+
+

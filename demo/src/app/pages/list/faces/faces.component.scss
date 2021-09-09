@@ -1,0 +1,12 @@
+.dynamic-aspect-container {
+    position: absolute;;
+    height:100%;
+    width:100%;
+    left:0;
+    top:0;
+}
+.dynamic-aspect-container > .dynamic-aspect-content {
+    position: relative;
+    margin:auto;
+    height:100%;    
+}

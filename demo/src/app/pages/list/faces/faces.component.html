@@ -1,0 +1,20 @@
+<div class="dynamic-aspect-container" #container>
+    <div class="dynamic-aspect-content" [ngStyle]="rect">
+        <ng-content></ng-content>
+        <div [ngStyle]="getBoxPosition(detection.box)" style="border:2px solid rgba(255, 0, 0, 0.4)" *ngFor="let detection of detections" dropdown container="body" dropdownToggle>
+            <div class="position-absolute" style="left:0; bottom:0; width:100%;background:rgba(255, 0, 0, 0.4);">
+                <small>{{detection.score}}</small>
+                <small *ngFor="let match of detection.matches" style="color:white;">{{getNameFromScope(match.scope)}} {{match.distance}}</small>
+            </div>
+
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                <ng-container *ngIf="detection.matches.length;else memberList;">
+                    <button class="dropdown-item" *ngFor="let match of detection.matches;" (click)="nullifyMatch(match)">This is not {{getNameFromScope(match.scope)}}.</button>
+                </ng-container>
+                <ng-template #memberList>
+                    <button class="dropdown-item" *ngFor="let member of members" (click)="addReference(detection, member)">This is {{member.member_name}}</button>
+                </ng-template>
+            </div>       
+        </div>
+    </div>    
+</div>

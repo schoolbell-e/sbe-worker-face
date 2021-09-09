@@ -1,0 +1,19 @@
+<div class="embed-responsive embed-responsive-4by3">
+    <video #video id="video" class="embed-responsive-item" autoplay></video>
+    <div *ngIf="error" class="position-absolute d-flex align-items-center justify-content-center text-white" style="left:0;right:0;top:0;bottom:0;opacity:.5;background-color:rgba(0, 0, 0, 1);z-index:2;">
+        {{error}}
+    </div>
+    <ngx-spinner name="webcam" [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>
+</div>
+<br/>
+<div class="row">
+    <div class="col-sm-6">
+        <select *ngIf="mediaDeviceInfoList.length > 1" class="custom-select custom-select-sm" [ngModel]="currentDeviceId" (ngModelChange)="setVideoStreamSource($event)">
+            <option *ngFor="let mediaDeviceInfo of mediaDeviceInfoList" [ngValue]="mediaDeviceInfo.deviceId">{{mediaDeviceInfo.label}}</option>
+        </select>
+    </div>
+    <div class="col-sm-6">
+        <button class="btn btn-light btn-sm btn-block" [disabled]="error || !ready" (click)="capture()">Snap Photo</button>
+    </div>
+
+</div>

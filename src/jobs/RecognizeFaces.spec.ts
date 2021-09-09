@@ -3,7 +3,7 @@ import { CLOUD_STOREAGE_BUCKET_NAME } from '../shared/util/secrets';
 import { RecognizeFaces } from './RecognizeFaces';
 import { statSync } from 'fs';
 import { Storage } from '@google-cloud/storage';
-import Face from '../models/face/Face';
+import Face from '../models/Face/Face';
 import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import FaceRecognitionsTable from '../shared/tables/FaceRecognitionsTable';
 import FaceDetectionsTable from '../shared/tables/FaceDetectionsTable';

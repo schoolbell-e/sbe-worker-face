@@ -1,6 +1,6 @@
 import FilesTable, { FileItem } from '../shared/tables/FilesTable';
 import fs from 'fs';
-import Face from '../models/face/Face';
+import Face from '../models/Face/Face';
 import FaceDetectionsTable from '../shared/tables/FaceDetectionsTable';
 import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import FaceRecognitionsTable from '../shared/tables/FaceRecognitionsTable';

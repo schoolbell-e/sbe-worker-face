@@ -1,4 +1,4 @@
-import Face from '../models/face/Face';
+import Face from '../models/Face/Face';
 import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import { ClaimFace } from './ClaimFace';
 import { CLOUD_STOREAGE_BUCKET_NAME } from '../shared/util/secrets';

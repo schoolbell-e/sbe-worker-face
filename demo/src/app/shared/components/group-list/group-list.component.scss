@@ -1,0 +1,14 @@
+div[dropdown] {
+    position:relative;
+}
+.dropdown-menu {
+    max-height: 60vh;
+    overflow: scroll;
+}
+[dropdownToggle] {
+    cursor: pointer;
+}
+
+.group-item {
+    cursor: pointer;
+}

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">Schoolbell-e FACE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <app-group-list></app-group-list>
+        
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active" queryParamsHandling="preserve" #rla="routerLinkActive">Home <span *ngIf="rla.isActive" class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active" queryParamsHandling="preserve" #rla="routerLinkActive">Register <span *ngIf="rla.isActive" class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/list']" routerLinkActive="active" queryParamsHandling="preserve" #rla="routerLinkActive">List <span *ngIf="rla.isActive" class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+
+        <ng-content></ng-content>
+        <ul class="navbar-nav">
+          <li *ngIf="user" class="nav-item dropdown" dropdown>
+              <a class="nav-link dropdown-toggle pt-0 pb-0" dropdownToggle>
+                <img [src]="user.photo || 'assets/images/default-profile.jpg'" class="rounded mr-2" width="33" height="33">
+                {{user.name}}
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                <a class="button dropdown-item" (click)="auth.logout()">Logout</a>
+              </div>
+          </li>
+          <li class="nav-item" *ngIf="!user">
+            <a class="button nav-link" (click)="login()">Login</a>
+          </li>
+        </ul>        
+      </div>
+    </div>
+  
+  </nav>
+  

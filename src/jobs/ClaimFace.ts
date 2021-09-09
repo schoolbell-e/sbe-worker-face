@@ -3,7 +3,7 @@ import FaceReferencesTable from '../shared/tables/FaceReferencesTable';
 import FaceRecognitionsTable from '../shared/tables/FaceRecognitionsTable';
 import { AbstractJob } from '../shared/jobs/AbstractJob';
 import { isMatch, minBy } from 'lodash';
-import Face, { MAX_DISTANCE } from '../models/face/Face';
+import Face, { MAX_DISTANCE } from '../models/Face/Face';
 import FilesTable from '../shared/tables/FilesTable';
 import PubSub from '../shared/gcp/PubSub';
 

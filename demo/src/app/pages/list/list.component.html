@@ -1,0 +1,17 @@
+<virtual-scroller 
+#scroll 
+[enableUnequalChildrenSizes]="true"
+[bufferAmount]="5"
+[parentScroll]="scroll.window"
+(vsEnd)="scrollHasHitBottom($event)"
+[items]="list">
+<div class="container">
+    <div class="row" #container>
+        <div class="col-4 text-center bg-dark p-0" *ngFor="let item of scroll.viewPortItems; trackBy:trackByFileId;" style="height:300px;overflow:hidden;">
+            <app-faces [file]="item">
+                <img class="img-fluid" width="100%" [src]="item.url"/>
+            </app-faces>
+        </div>
+    </div>    
+</div>
+</virtual-scroller>    

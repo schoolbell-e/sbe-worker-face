@@ -1,0 +1,58 @@
+<div class="container">
+
+    <br/>
+    <br/>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                Give us your face(s)
+
+                <button class="btn btn-light btn-sm mr-1" [popover]="webcamPopTemplate" #webcamPopover="bs-popover" >via webcam <i class="fa fa-camera"></i></button>
+                <button ngfSelect file (fileChange)="onUpload($event)" accept="image/*" multiple="1" class="btn btn-light btn-sm mr-1">via image file <i class="fa fa-upload"></i></button>
+    
+            </h5>
+            <div style="width:400px;" *ngIf="showWebcam">
+                <app-webcam (onCapture)="onCapture($event)"></app-webcam>
+            </div>
+        
+
+            <div class="row align-items-stretch">
+                <div class="col-sm-2" *ngFor="let li of face_reference_list; let i = index;">
+                    <div class="card h-100">
+                        <div class="position-relative hover-container h-100">
+                            <img *ngIf="li.reference_id; else blobImg" class="card-img-top" [src]="li.img" width="100%" alt="face thumbnail" />
+                            <ng-template #blobImg><img class="card-img-top" [blob]="li.img" width="100%" /></ng-template>
+                            <div class="show-on-hover cursor-pointer position-absolute d-flex align-items-center justify-content-center p-2" style="left:0;right:0;top:0;bottom:0;z-index:2;" (click)="remove(i)">
+                                <i class="fa fa-times fa-2x text-white" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-2 cursor-pointer hover-container">
+                          <p class="card-text text-center">{{li.name || '-'}} 
+                              <i class="fa fa-pencil show-on-hover"></i>
+                            </p>
+                        </div>
+                    </div>                    
+                
+        
+                </div>
+            </div>
+        
+
+        </div>
+    </div>
+
+    
+</div>
+<ng-template #webcamPopTemplate>
+    <div style="width:400px;">
+<<<<<<< HEAD
+        app-webcam app-webcam app-webcam
+        <app-webcam (onCapture)="onCapture($event)"></app-webcam>
+    </div>
+</ng-template>
+=======
+        <app-webcam (onCapture)="onCapture($event)"></app-webcam>
+    </div>
+</ng-template>
+>>>>>>> main

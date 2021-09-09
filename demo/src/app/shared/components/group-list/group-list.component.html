@@ -1,0 +1,35 @@
+<ul class="navbar-nav">
+    <li class="nav-item">
+      <div dropdown>
+        <a class="nav-link dropdown-toggle" dropdownToggle>
+          <b *ngIf="currentGroup; else noCurrentGroup">{{currentGroup.name}}</b>
+          <ng-template #noCurrentGroup i18n>My groups</ng-template> 
+        </a>
+        <div class="dropdown-menu" *dropdownMenu style="max-height:45vh;overflow-y:scroll;overflow-x:auto;width:300px;">
+          <h6 class="dropdown-header text-center" *ngIf="utg.list.length === 0">
+            <span *ngIf="utg.loading === false" i18n>
+              No groups. 
+            </span>
+            <span *ngIf="utg.loading !== false" i18n>
+                loading...<i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+            </span>
+          </h6>
+          <h6 class="dropdown-header" *ngIf="utg.classes.length !== 0" i18n>Classes</h6>
+          <a *ngFor="let group of utg.classes; trackBy: trackByUtgId"
+          class="dropdown-item" [class.active]="currentGroup && currentGroup.gid === group.group_id"
+          [routerLink]="[]" [relativeTo]="route" [queryParams]="{group_id:group.group_id}">
+            {{group?.school_name}} {{group?.group_name}}
+          </a>
+
+          <h6 class="dropdown-header" *ngIf="utg.schools.length !== 0" i18n>Schools</h6>
+          <button *ngFor="let group of utg.schools; trackBy: trackByUtgId" 
+          class="dropdown-item" [class.active]="currentGroup && currentGroup.gid === group.group_id"
+          [routerLink]="[]" [relativeTo]="route" [queryParams]="{group_id:group.group_id}">
+            {{group?.school_name}} {{group?.group_name}}
+          </button>
+        </div>
+      </div>  
+    </li>
+  </ul>              
+
+
