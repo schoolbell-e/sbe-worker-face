@@ -1,23 +1,15 @@
-/**
- * Returns a Promise<string> that resolves after a given time.
- *
- * @param {string} name - A name.
- * @param {number} [delay] - A number of milliseconds to delay resolution of the Promise.
- * @returns {Promise<string>}
- */
-function delayedHello(
-  name: string,
-  delay: number,
-): Promise<string> {
-  return new Promise((resolve: (value?: string) => void) =>
-    setTimeout(() => resolve(`Hello, ${name}`), delay),
-  );
-}
+import { ClaimFace } from './jobs/ClaimFace';
+import { RecognizeFaces } from './jobs/RecognizeFaces';
+import { Worker } from './shared/worker/Worker';
+const TOPIC_NAME = 'face-recognition';
+const SUBSCRIPTION_NAME = 'face-recognition';
 
-// Below are examples of using ESLint errors suppression
-// Here it is suppressing a missing return type definition for the greeter function.
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export async function greeter(name: string) {
-  return await delayedHello(name, 1000);
+async function run() {
+  const worker = new Worker(TOPIC_NAME, SUBSCRIPTION_NAME, {
+    RecognizeFaces,
+    ClaimFace,
+  });
+  await worker.run();
+  process.exit();
 }
+run();
